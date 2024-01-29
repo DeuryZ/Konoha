@@ -6,6 +6,7 @@ package com.mycompany.konoha.ninja.controller;
 
 import com.mycompany.konoha.ninja.DAO.NinjaDAO;
 import com.mycompany.konoha.ninja.Ninja;
+import com.mycompany.konoha.ninja.NinjaFull;
 import java.util.List;
 
 /**
@@ -15,7 +16,10 @@ import java.util.List;
 public class NinjaController {
     private final static NinjaDAO ninjaDAO = new NinjaDAO();
 
-    public static List<Ninja> traerNinjas() {
+    public static List<NinjaFull> traerNinjas() {
         return ninjaDAO.getAll();
+    }
+    public static void guardarNinja(Ninja ninja){
+        ninjaDAO.save(ninja);
     }
 }
