@@ -17,9 +17,9 @@ public abstract class BDConnection {
     public static Connection con = null;
 
     public static Connection MySQLConnection() {
-        url = "jdbc:mysql://192.168.110.205:3306/konoha";
-        user = "misael";
-        password = "m4tp2001";
+        url = "jdbc:mysql://localhost:3306/konoha";
+        user = "root";
+        password = "campus2024";
         return getConnection(url, user, password);
     }
 

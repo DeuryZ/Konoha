@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author user
  */
-public class NinjaMisionController {
+public class NinjaMisionController{
     public final static NinjaMisionDAO ninjaMisionDAO = new NinjaMisionDAO();
     
     public static void guardarMision(NinjaMision ninjaMision){

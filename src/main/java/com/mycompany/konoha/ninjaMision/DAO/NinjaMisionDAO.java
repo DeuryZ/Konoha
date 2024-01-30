@@ -6,6 +6,7 @@ package com.mycompany.konoha.ninjaMision.DAO;
 
 import com.mycompany.konoha.DAO.*;
 import com.mycompany.konoha.mision.Mision;
+import com.mycompany.konoha.ninjaMision.Hilo;
 import com.mycompany.konoha.ninjaMision.NinjaMision;
 import com.mycompany.konoha.persistence.BDConnection;
 import com.mycompany.konoha.persistence.Operations;
@@ -21,17 +22,18 @@ import java.util.List;
  *
  * @author user
  */
-public class NinjaMisionDAO implements ISaveDAO<NinjaMision>, IGetByIdDAO<NinjaMision>{
+public class NinjaMisionDAO implements ISaveDAO<NinjaMision>, IGetByIdDAO<NinjaMision>, Runnable{
 
     @Override
-    public void save(NinjaMision t) {
+    public void save(NinjaMision t){
         Operations.setConnection(BDConnection.MySQLConnection());
         // Create a query and send corresponding information in each field by replacing the character "?" with the information
-        String stmInsert = "INSERT INTO mision_ninja (ninja_id, mision_id, fecha_inicio) VALUES(?, ?, ?);";
+        String stmInsert = "INSERT INTO mision_ninja (ninja_id, mision_id, fecha_inicio, tiempoDeEspera) VALUES(?, ?, ?, ?);";
         try (PreparedStatement ps = Operations.getConnection().prepareStatement(stmInsert)) {
             ps.setLong(1, t.getNinja_id());
             ps.setLong(2, t.getMision_id());
             ps.setDate(3, Date.valueOf(t.getFechaInicio()));
+            ps.setInt( 4, t.getTiempoDeMision());
             // use Operation class with insert_update_delete and verify if the rows in database are affected
             int rows = Operations.insert_update_delete_db(ps);
 
@@ -40,12 +42,16 @@ public class NinjaMisionDAO implements ISaveDAO<NinjaMision>, IGetByIdDAO<NinjaM
             } else {
                 System.out.println("Successful  insert mision");
             }
+            Hilo paraAcabar = new Hilo(t.getTiempoDeMision(), t.getNinja_id(), t.getMision_id());
+            Thread hiloParaAcabar = new Thread(paraAcabar);
+            hiloParaAcabar.start();
+            
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("An error has occurred: " + e.getMessage());
         }
     }
-
+    
     public void update(long id, String fechaFin) {
             NinjaMision ninjaMision = getById(id);
 
@@ -97,6 +103,7 @@ public class NinjaMisionDAO implements ISaveDAO<NinjaMision>, IGetByIdDAO<NinjaM
                 nm.setMision_id(rs.getLong("mision_id"));
                 nm.setFechaInicio(rs.getString("fecha_inicio"));
                 nm.setFechaFinal(rs.getString("fecha_fin"));
+                nm.setTiempoDeMision(rs.getInt("tiempoDeEspera"));
                 return nm;
             } else {
                 System.out.println("Not found mision");
@@ -121,6 +128,7 @@ public class NinjaMisionDAO implements ISaveDAO<NinjaMision>, IGetByIdDAO<NinjaM
                 ninjaMision.setFechaInicio(rs.getString("mision_id"));
                 ninjaMision.setFechaInicio(rs.getString("fecha_inicio"));
                 ninjaMision.setFechaFinal(rs.getString("fecha_fin"));
+                ninjaMision.setTiempoDeMision(rs.getInt("tiempoDeMision"));
                 ninjaMisionList.add(ninjaMision);
             }
             return ninjaMisionList;
@@ -130,4 +138,11 @@ public class NinjaMisionDAO implements ISaveDAO<NinjaMision>, IGetByIdDAO<NinjaM
         }
         return null;
     }
+
+    @Override
+    public void run() {
+        
+    }
+
+
 }

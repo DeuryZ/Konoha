@@ -14,11 +14,13 @@ public class NinjaMision {
     private long mision_id;
     String fechaInicio;
     String fechaFinal;
+    int tiempoDeMision;
 
-    public NinjaMision(long ninja_id, long mision_id, String fechaInicio) {
+    public NinjaMision(long ninja_id, long mision_id, String fechaInicio, int tiempoDeMision) {
         this.ninja_id = ninja_id;
         this.mision_id = mision_id;
         this.fechaInicio = fechaInicio;
+        this.tiempoDeMision = tiempoDeMision; 
     }
 
     public NinjaMision() {
@@ -56,11 +58,17 @@ public class NinjaMision {
         this.fechaFinal = (fechaFinal);
     }
 
+    public int getTiempoDeMision() {
+        return tiempoDeMision;
+    }
+
+    public void setTiempoDeMision(int tiempoDeMision) {
+        this.tiempoDeMision = tiempoDeMision;
+    }
+
     @Override
     public String toString() {
-        return "NinjaMision{" + "ninja_id=" + ninja_id + ", mision_id=" + mision_id + ", fechaInicio=" + fechaInicio + ", fechaFinal=" + fechaFinal + '}';
+        return "NinjaMision{" + "ninja_id=" + ninja_id + ", mision_id=" + mision_id + ", fechaInicio=" + fechaInicio + ", fechaFinal=" + fechaFinal + ", tiempoDeMision=" + tiempoDeMision + '}';
     }
-    
-    
-    
+
 }

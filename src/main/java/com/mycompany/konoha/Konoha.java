@@ -45,14 +45,14 @@ public class Konoha {
 //        }
 
         // mostrar las habilidades
-//        List<Habilidad> pruebaHabilidad = new ArrayList<>();
-//        pruebaHabilidad = HabilidadController.traerHabilidades();
-//        for (Habilidad habilidad : pruebaHabilidad) {
-//            System.out.println(habilidad);
-//        }
+        List<Habilidad> pruebaHabilidad = new ArrayList<>();
+        pruebaHabilidad = HabilidadController.traerHabilidades();
+        for (Habilidad habilidad : pruebaHabilidad) {
+            System.out.println(habilidad);
+        }
 
         // asignar un ninja a una mision
-//        NinjaMision ninjaMisionTest = new NinjaMision(2, 4, "2024-02-30");
+//        NinjaMision ninjaMisionTest = new NinjaMision(2, 1, "2024-02-30",5);
 //        NinjaMisionController.guardarMision(ninjaMisionTest);
 
         // buscar misiones asignadas por el id de la mision
@@ -81,6 +81,8 @@ public class Konoha {
 //        System.out.println("5.Mostrar todas las misiones completadas");  
 //    }
         
+
+    
         
 
 
